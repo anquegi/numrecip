@@ -48,19 +48,16 @@
 ;;;
 ;;;    zroots and laguer
 ;;;
-;;;    four1(data,nn,isign) -- in place FFT or IFFT of complex or real data. NN must be power of  
-2.
+;;;    four1(data,nn,isign) -- in place FFT or IFFT of complex or real data. NN must be power of  2.
 
 ;;;    twofft(data1,data2,fft1,fft2,n) -- two FFT's at once from data into fft arrays
 ;;;    realft(data,n,isign) -- FFT of 2n real data points returning positive frequency half
-;;;    convlv(data,n,respns,m,isign,ans) -- convolve DATA with RESPNS (or deconvolve if  
-ISIGN=-1)
+;;;    convlv(data,n,respns,m,isign,ans) -- convolve DATA with RESPNS (or deconvolve if  ISIGN=-1)
 ;;;    correl(data1,data2,n,ans) -- compute correlation of data1 and data2
 ;;;        autocorrel(data,n,ans) -- autocorrelation of data
 ;;;        DFT(data) -- discrete Fourier transform of any data, done by hand
 ;;;        spectrum(data window) -- window data, return normalized power spectrum
-;;;    memcof(data,n,m,cof) -- fill COF with Maximum Entropy Method coefficients, return scaler  
-("pm")
+;;;    memcof(data,n,m,cof) -- fill COF with Maximum Entropy Method coefficients, return scaler  ("pm")
 ;;;    evlmem(fdt,cof,m,pm) --  return power spectrum estimate
 ;;;
 ;;;    locate(xx,x) -- find position of x in array xx [0 based]
@@ -71,8 +68,7 @@ ISIGN=-1)
 ;;;    poldiv(u,n,v,nv,r,q) -- polynomial division
 ;;;    qtrap and qsimp -- integrate a function between two points (qtrap x0 x1 func)
 ;;;
-;;;    moment(data) -- returns mean, average deviation, standard deviation, variance, skewness,  
-kurtosis of data [0 based]
+;;;    moment(data) -- returns mean, average deviation, standard deviation, variance, skewness,  kurtosis of data [0 based]
 ;;;    Mdian2(data) -- returns median, sorts data
 ;;;
 ;;;

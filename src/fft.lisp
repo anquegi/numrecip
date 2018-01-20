@@ -14,6 +14,15 @@
 ; Here's the version from "Numerical Recipes" changed to use 0-based
 ; arrays and a slightly simpler recursion:
 
+(defpackage   :numrecip.fft
+  (:nicknames nr.fft)
+  (:use       :cl)
+  (:export
+   :fft)
+  (:documentation "doc"))
+
+
+
 (defun fft (xdata ydata n &optional (isign 1))
   (declare (optimize (speed 3) (safety 1)))
   (let ((mmax 0) (j 0)

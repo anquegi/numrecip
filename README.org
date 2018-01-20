@@ -1,0 +1,90 @@
+#+LANGUAGE: en
+#+AUTHOR: Antonio Querol
+#+EMAIL: antonio.querol @11paths.com
+#+OPTIONS:   H:3 num:t   toc:3 
+:nil @:t ::t |:t ^:nil -:t f:t *:t <:nil
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:   author:t creator:t timestamp:t email:t/n#+DESCRIPTION: 
+#+KEYWORDS: 
+#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+* NUMRECIP
+:PROPERTIES:
+:headers-args:
+:END:
+
+This common lisp library was found in the sunet ftp repo, it is Common Lisp library of mathematical functions. and was inside of the cd-rom Prime Time Freeware for AI, Issue 1-1 
+
+** Disclaimer
+
+This repository contains is a fork of the original numrecip developed by Bill Schottstaedt <bil@ccrma.Stanford.EDU>, a very nice man that contributed a lot of things in Common Lisp, the code was inside a mailing list so I only copy this file and have the following goals in mind:
+
+  + Remove dependent libraries available from the Quicklisp repository
+  + Re-factor code to support Quicklisp packaging 
+  + Organize code into independent systems based on functional category
+  + Support for SBCL, CCL, LispWorks and Allegro Common Lisp
+  + Improve documentation
+  + Prepare test using [[https://github.com/Shinmera/parachute][Parachute]]
+  + Integration and tutorial for analysing data using emacs and org mode
+
+
+** Package:      
+
+ numrecip
+
+** Summary:      
+
+Numerical Recipes in Lisp
+
+** Version:      
+
+26-AUG-94
+
+** Description: 
+
+   This directory contains a variety of "Numerical Recipes" in Common
+   Lisp, including Fast Fourier Transform, Bessel Functions, Gamma
+   Functions, Beta Function, Factorial, Binomial Coefficients, Error
+   Function, Legendre Polynomials, White Noise, Exponentially Distributed
+   Noise, Gaussian Noise, Convolutions, Autocorrelations, Correlations,
+   Discrete Fourier Transforms, Power Spectrum, Polynomial Interpolation,
+   Polynomial Division, Numerical Integration, Mean, Standard Deviation,
+   and Median.
+
+** Requires:     
+
+Common Lisp
+
+** Origin:       
+
+Mail from Bill Schottstaedt
+              
+** Updated:      
+
+Fri Aug 26 17:16:08 1994
+
+** Author(s):    
+
+Bill Schottstaedt <bil@ccrma.Stanford.EDU>
+
+** Maintainer: 
+
+Antonio Juan Querol Giner <antonio.querol@cuaqea.com>      
+
+** Keywords:     
+
+   Lisp!Math, Math, Authors!Schottstaedt, Fast Fourier Transform,
+   Bessel Functions, Gamma Functions, Beta Function, Factorial, Binomial
+   Coefficients, Error Function, Legendre Polynomials, White Noise,
+   Exponentially Distributed Noise, Gaussian Noise, Convolutions,
+   Autocorrelations, Correlations, Discrete Fourier Transforms, Power
+   Spectrum, Polynomial Interpolation, Polynomial Division, Numerical
+   Integration, Mean, Standard Deviation, Median
+
+** References:   
+
+   The functions were translated from "Numerical Recipes in Pascal" by
+   Press, Flannery, Teukolsky, and Vetterling, Cambridge Univ Press, 1989.
+   All functions and variables retain the original names.

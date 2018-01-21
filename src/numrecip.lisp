@@ -75,6 +75,87 @@
 ;;;
 ;;;
 ;;;; ------------------------------------------------------------------------------------------
+;;;; Package definition
+
+(defpackage numrecip
+  (:nicknames nr)
+  (:use :cl)
+  (:export
+   :ludcmp
+   :lubksb
+   :polint
+   :ratint
+   :trapzd
+   :qtrap
+   :qsimp
+   :poldiv
+   :polmul
+   :bessj0
+   :bessj1
+   :bessj
+   :Bessel-Jn
+   :bessy0
+   :bessy1
+   :bessy
+   :Bessel-Yn
+   :bessi0
+   :bessi1
+   :bessi
+   :Bessel-In
+   :bessk0
+   :bessk1
+   :bessk
+   :Bessel-Kn
+   :gammln
+   :gamma
+   :beta
+   :factrl
+   :factln
+   :bico
+   :gser
+   :gcf
+   :gammp
+   :gammq
+   :erf
+   :erfc
+   :betacf
+   :betai
+   :Student-distribution
+   :F-distribution
+   :plgndr
+   :ran3
+   :expdev
+   :gasdev
+   :locate
+   :indexx
+   :rank
+   :sqr
+   :laguer
+   :zroots
+   :four1
+   :four4
+   :twofft
+   :realft
+   :convlv
+   :correl
+   :autocorrel
+   :sqr
+   :apply-window
+   :spectrum
+   :log-magnitude
+   :memcof
+   :evlmem
+   :fixrts
+   :predic
+   :moment
+   :mdian1
+   :avevar)
+  (:documentation "translated from 'Numerical Recipes in Pascal' by Press, Flannery, Teukolsky, Vetterling 
+Cambridge Univ Press, 1989.  All functions and variables are named the same."))
+
+
+
+;;;; ------------------------------------------------------------------------------------------
 ;;;;                    Linear Algebra
 
 
@@ -144,8 +225,7 @@
 ;;;;
 ;;;;
 
-(defun polint (xa ya x)			;given arrays xa and ya, and x, return y and error  
-estimate dy
+(defun polint (xa ya x)			;given arrays xa and ya, and x, return y and error estimate dy
   (let* ((n (array-dimension xa 0))
 	 (ns 1)
 	 (y 0.0) (dy 0.0)
@@ -221,7 +301,6 @@ estimate dy
     (values y dy)))
 
 
-
 ;;;; ------------------------------------------------------------------------------------------
 ;;;;
 ;;;;                    Integration
@@ -273,7 +352,6 @@ estimate dy
 ;;;;
 ;;;;                    Evaluation
 ;;;;
-
 
 (defun poldiv (u n v nv q r)
   (progn
@@ -409,8 +487,7 @@ estimate dy
 	(let ((tox (/ 2.0 (abs x)))	;else use downward recurrence from even value (m)
 	      (m (* 2 (floor		;DIV in Pascal, we hope...
 		       (+ n (sqrt (* iacc n))) 2)))
-	      (jsum 0.0)		;alternate 0 and 1 -- when 1, accumulate even terms in  
-sum
+	      (jsum 0.0) ;alternate 0 and 1 -- when 1, accumulate even terms in sum
 	      (bjm 0.0)
 	      (sum 0.0)
 	      (bjp 0.0)
@@ -828,8 +905,7 @@ formula first
 
 
 (defun gammq (a x)			;incomplete gamma function Q(a,x) = 1 - P(a,x)
-  (- 1.0 (gammp a x)))			;Numerical Recipes repeats the GAMMP procedure code --  
-kinda odd.
+  (- 1.0 (gammp a x)))			;Numerical Recipes repeats the GAMMP procedure code -- kinda odd.
 
 
 (defun erf (x)				;returns error function erf(x)
@@ -1190,12 +1266,9 @@ for next time
 
 (defun four1 (data nn isign)		;replaces data by its discrete Fourier transform,
 					;if ISIGN=1, or replaces data by NN times it inverse
-					;discrete Fourier transform if ISIGN=-1.  DATA is a  
-complex
-					;array of NN elements (assumed here to be a real array  
-of 2*(nn+1))
-					;NN must be an integer power of 2, but we don't check it  
-here.
+					;discrete Fourier transform if ISIGN=-1.  DATA is a complex
+					;array of NN elements (assumed here to be a real array of 2*(nn+1))
+					;NN must be an integer power of 2, but we don't check it here.
   (let ((m 0) (istep 0) (i 0) (mmax 0)
 	(n (* 2 nn))
 	(j 1)
@@ -1250,8 +1323,7 @@ here.
 	(setf wi (+ wi (* wi wpr) (* wtemp wpi))))
       (setf mmax istep))))
 
-;;; here's a version of the same function, but using two 0-based arrays, and a simpler  
-recursion.
+;;; here's a version of the same function, but using two 0-based arrays, and a simpler recursion.
 
 (defun four4 (xdata ydata n isign)
   (let ((mmax 0)
@@ -1720,8 +1792,7 @@ n (* 2 i)) n)))))) (bessi0 beta)))
 ;;;;
 
 
-(defun moment (data)			;returns mean, average deviation, standard deviation,  
-variance, skewness, kurtosis
+(defun moment (data) ;returns mean, average deviation, standard deviation, variance, skewness, kurtosis
   (let ((n (array-dimension data 0))
 	(s 0.0) (p 0.0)
 	(ave 0.0) (adev 0.0) (svar 0.0) (skew 0.0) (curt 0.0) (sdev 0.0))
@@ -1768,134 +1839,4 @@ variance, skewness, kurtosis
       (incf svar (* s s)))
     (values ave (/ svar (- n 1)))))
 
-
-;;;------------------------------------------------------------------------
-;;; C version of fft
-#|
-
-/* fft and convolution of real data in zero-based arrays */
-
-shuffle (float* rl, float* im, int n)
-{
-  /* bit reversal */
-
-  int i,m,j;
-  float tempr,tempi;
-  j=0;
-  for (i=0;i<n;i++)
-    {
-      if (j>i)
-	{
-	  tempr = rl[j];
-	  tempi = im[j];
-	  rl[j] = rl[i];
-	  im[j] = im[i];
-	  rl[i] = tempr;
-	  im[i] = tempi;
-	}
-      m = n>>1;
-      while ((m>=2) && (j>=m))
-	{
-	  j -= m;
-	  m = m>>1;
-	}
-      j += m;
-    }
-}
-
-c_fft (float* rl, float* im, int n, int isign, int ipow)
-{
-  /* standard fft: real part in rl, imaginary in im,        */
-  /* ipow = ceiling (log n / log 2), isign=1 fft, =-1 ifft. */
-  /* rl and im are zero-based.                              */
-  /*                                                        */
-  /* oddly enough, the integer version (using integer ops   */
-  /* and "block floating point" scaling) was much slower,   */
-  /* and splitting out the no-ops (twiddle factors==0 etc)  */
-  /* made no difference at all.                             */
-
-  int mmax,j,pow,prev,lg,i,ii,jj;
-  float wrs,wis,tempr,tempi;
-  double wr,wi,theta,wtemp,wpr,wpi;
-
-  shuffle(rl,im,n);
-  mmax = 2;
-  prev = 1;
-  pow = n*0.5;
-  theta = (one_pi*isign);
-  for (lg=0;lg<ipow;lg++)
-    {
-      wpr = cos(theta);
-      wpi = sin(theta);
-      wr = 1.0;
-      wi = 0.0;
-      for (ii=0;ii<prev;ii++)
-	{
-	  wrs = (float) wr;
-	  wis = (float) wi;
-	  i = ii;
-	  j = ii + prev;
-	  for (jj=0;jj<pow;jj++)
-	    {
-	      tempr = wrs*rl[j] - wis*im[j];
-	      tempi = wrs*im[j] + wis*rl[j];
-	      rl[j] = rl[i] - tempr;
-	      im[j] = im[i] - tempi;
-	      rl[i] += tempr;
-	      im[i] += tempi;
-	      i += mmax;
-	      j += mmax;
-	    }
-	  wtemp = wr;
-	  wr = (wr*wpr) - (wi*wpi);
-	  wi = (wi*wpr) + (wtemp*wpi);
-	}
-      pow = pow*0.5;
-      prev = mmax;
-      theta = theta*0.5;
-      mmax = mmax*2;
-    }
-}
- 
-
-convolve (float* rl1, float* rl2, int n, int ipow)
-{
-  /* convolves two real arrays.                                           */
-  /* rl1 and rl2 are assumed to be set up correctly for the convolution   */
-  /* (that is, rl1 (the "signal") is zero-padded by length of             */
-  /* (non-zero part of) rl2 and rl2 is stored in wrap-around order)       */
-  /* We treat rl2 as the imaginary part of the first fft, then do         */
-  /* the split, scaling, and (complex) spectral multiply in one step.     */
-  /* result in rl1                                                        */
-
-  int j,n2,nn2;
-  float rem,rep,aim,aip,invn;
-
-  c_fft(rl1,rl2,n,1,ipow);
-  
-
-  n2=n*0.5;
-  invn = 0.25/n;
-  rl1[0] = ((rl1[0]*rl2[0])/n);
-  rl2[0] = 0.0;
-
-  for (j=1;j<=n2;j++)
-    {
-      nn2 = n-j;
-      rep = (rl1[j]+rl1[nn2]);
-      rem = (rl1[j]-rl1[nn2]);
-      aip = (rl2[j]+rl2[nn2]);
-      aim = (rl2[j]-rl2[nn2]);
-
-      rl1[j] = invn*(rep*aip + aim*rem);
-      rl1[nn2] = rl1[j];
-      rl2[j] = invn*(aim*aip - rep*rem);
-      rl2[nn2] = -rl2[j];
-    }
-  
-
-  c_fft(rl1,rl2,n,-1,ipow);
-}
-
-|#
 ;;; end of file

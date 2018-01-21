@@ -16,12 +16,10 @@
 
 (defpackage   :numrecip.fft
   (:nicknames nr.fft)
-  (:use       :cl)
+  (:use :cl)
   (:export
    :fft)
-  (:documentation "doc"))
-
-
+  (:documentation "Package implementation of the fast fourier transform"))
 
 (defun fft (xdata ydata n &optional (isign 1))
   (declare (optimize (speed 3) (safety 1)))
@@ -74,9 +72,6 @@
       (setf theta (* theta .5))
       (setf mmax (* mmax 2)))))
 
-
-; I also have lisp versions of about 2 or 3 dozen of the other
-; numerical routines from that book which I'd be happy to share.
 
 
 

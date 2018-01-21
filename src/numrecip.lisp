@@ -154,7 +154,7 @@
 Cambridge Univ Press, 1989.  All functions and variables are named the same."))
 
 
-
+(in-package :numrecip)
 ;;;; ------------------------------------------------------------------------------------------
 ;;;;                    Linear Algebra
 
@@ -787,8 +787,7 @@ Cambridge Univ Press, 1989.  All functions and variables are named the same."))
 
 (defun gammln (xx)			;Ln(gamma(xx)), xx>0 
 
-					;for full accuracy between 0 and 1, use reflection  
-formula first
+					;for full accuracy between 0 and 1, use reflection formula first
   (let* ((stp 2.50662827465)
 	 (x (- xx 1.0))
 	 (tmp (+ x 5.5))

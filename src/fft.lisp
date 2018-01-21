@@ -21,6 +21,8 @@
    :fft)
   (:documentation "Package implementation of the fast fourier transform"))
 
+(in-package :numrecip.fft)
+
 (defun fft (xdata ydata n &optional (isign 1))
   (declare (optimize (speed 3) (safety 1)))
   (let ((mmax 0) (j 0)
